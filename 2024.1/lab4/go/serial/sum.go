@@ -24,16 +24,16 @@ func sum(filePath string, chunkSim map[int][]string) (int, error) {
 	}
 
 	_sum := 0
-	// for _, b := range data {
-	// 	intb := int(b)
-	// 	_sum += intb
-	// 	chunkSim[intb] = append(chunkSim[intb], filePath)
-	// }
 
-
-	for i := 0; i < len(data); i += 100 {
+	chunkSize := 50000
+	for i := 0; i < len(data); i += chunkSize {
+		end := i + chunkSize
+		if end > len(data) {
+			end = len(data)
+		}
+	
 		chunk := 0
-		for j := 0; j < 100; j++ {
+		for j := i; j < end; j++ {
 			intb := int(data[j])
 			_sum += intb
 			chunk += intb
@@ -73,9 +73,9 @@ func main() {
 		}
 	}
 
-	// for chunk, files := range chunkSim {
-	// 	if len(files) > 1 {
-	// 		fmt.Printf("ALO %d: %v\n", chunk, files)
-	// 	}
-	// }
+	for chunk, files := range chunkSim {
+		if len(files) > 1 {
+			fmt.Printf("Similarity between files: %d %v\n", chunk, files)
+		}
+	}
 }
