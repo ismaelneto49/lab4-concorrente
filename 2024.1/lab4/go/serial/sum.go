@@ -73,9 +73,9 @@ func main() {
 		}
 	}
 
-	for chunk, files := range chunkSim {
+	for _, files := range chunkSim {
 		if len(files) > 1 {
-			fmt.Printf("Similarity between files: %d %v\n", chunk, files)
+			fmt.Printf("There is similarity between the files: %v\n", files)
 		}
 	}
 }
