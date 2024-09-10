@@ -24,7 +24,6 @@ func sum(filePath string, chunkSim map[int][]string) (int, error) {
 	}
 
 	_sum := 0
-
 	chunkSize := 50000
 	for i := 0; i < len(data); i += chunkSize {
 		end := i + chunkSize
