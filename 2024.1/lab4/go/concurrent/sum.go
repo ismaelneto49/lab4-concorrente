@@ -36,24 +36,18 @@ func main() {
 	}
 
 	ch := make(chan int)
-	var totalSum int64
 	sums := make(map[int][]string)
 	for _, path := range os.Args[1:] {
 		go sum(path, ch)
-		// if err != nil {
-		// 	continue
-		// }
-
-		// totalSum += int64(_sum)
-
-		// sums[_sum] = append(sums[_sum], path)
-	}
-	var tsum int64
-	for i := 0; i < 10; i++ { 
-  	tsum += int64(<- ch)
 	}
 	
-	fmt.Println(totalSum, "total")
+	var tsum int64
+	for i := 0; i < 11; i++ { 
+		v := <- ch
+  	tsum += int64(v)
+		sums[v] = append(sums[v], path)
+	}
+
 	fmt.Println(tsum, "tsum")
 
 	for sum, files := range sums {
