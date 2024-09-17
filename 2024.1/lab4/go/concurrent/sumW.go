@@ -1,4 +1,4 @@
-package main
+
 
 import (
 	"fmt"
@@ -25,7 +25,6 @@ func readFile(filePath string) ([]byte, error) {
 func sum(filePath string, ch chan Pair) {
 	data, err := readFile(filePath)
 	if err != nil {
-		panic(err)
 	}
 
 	_sum := 0
@@ -48,14 +47,20 @@ func main() {
 		go sum(path, ch)
 	}
 
+	var totalSum int64
 	for i := 0; i < 11; i++ {
 		v := <-ch
+		totalSum += v.sum
 		path := v.path
 		index := int(v.sum)
 		sums[index] = append(sums[index], path)
 	}
 
+	fmt.Println(totalSum)
+
 	for sum, files := range sums {
-		fmt.Printf("Sum %d: %v\n", sum, files)
+		if len(files) > 1 {
+			fmt.Printf("Sum %d: %v\n", sum, files)
+		}
 	}
 }
